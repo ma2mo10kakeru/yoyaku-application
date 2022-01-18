@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <title>patient1</title>
+    <link rel="stylesheet" href="./css/system.css" />
+
+<script type="text/javascript">
+//LocalStorageの入れ物//
+    var P1_STATUS0 = "P1_ST0";
+    var P1_STATUS1 = "P1_ST1";
+    var P1_STATUS2 = "P1_ST2";
+
+//JSON読み込み//
+ $(function(){
+    $.getJSON("drugdata.json",display);
+　});
+function display(drugdata){
+    $("#p_name").html(drugdata[1].name);
+};
+//JSON読み込み//
+
+//IDチェック朝//
+$(function () {
+     $("#IDcheck_morning").click(function(){
+            $.getJSON("drugdata.json", IDcheck1);   
+                });
+});
+function IDcheck1(drugdata){
+    var ID0, p1st0;
+    ID0 = drugdata[1].id;
+    p1st0 = localStorage.getItem(P1_STATUS0);
+    if(p1st0 == "未投与"){
+        alert("与薬情報が未確認です！\n情報を確認してからIDチェックをして下さい！");
+    }else if(p1st0 == "投与済み"){
+        alert("すでに投与されています");
+    }else{
+        if(document.form1.morning_statuscheck.value==ID0){
+            Right = confirm("正しく確認できています。\n対象患者に薬剤を投与してください。");
+            if(Right == true){
+                localStorage.setItem(P1_STATUS0,"投与済み");
+                location.href="patient1.html";
+            }else{
+                alert("キャンセルされました");
+            }
+        }else{
+            alert("対象患者が間違っています！\n患者IDを再確認してください。");
+        }
+    }
+}
+//IDチェック朝//
+
+//IDチェック昼//
+$(function () {
+        $("#IDcheck_noon").click(function(){
+                    $.getJSON("drugdata.json", IDcheck2);
+                });
+});
+function IDcheck2(drugdata){
+    var ID1, p1st1;
+    ID1 = drugdata[1].id;
+    p1st1 = localStorage.getItem(P1_STATUS1);
+    if(p1st1 == "未投与"){
+        alert("与薬情報が未確認です！\n情報を確認してからIDチェックをして下さい！");
+    }else if(p1st1 == "投与済み"){
+        alert("すでに投与されています");
+    }else{
+        if(document.form2.noon_statuscheck.value==ID1){
+            Right = confirm("正しく確認できています。\n対象患者に薬剤を投与してください。");
+            if(Right == true){
+                localStorage.setItem(P1_STATUS1,"投与済み");
+                location.href="patient1.html";
+            }else{
+                alert("キャンセルされました");
+            }
+        }else{
+            alert("対象患者が間違っています！\n患者IDを再確認してください。");
+        }
+    }
+}
+//IDチェック昼//
+
+//IDチェック夜//
+$(function () {
+     $("#IDcheck_night").click(function(){
+                    $.getJSON("drugdata.json", IDcheck3);
+                });
+});
+function IDcheck3(drugdata){
+    var ID2, p1st2;
+    ID2 = drugdata[1].id;
+    p1st2 = localStorage.getItem(P1_STATUS2);
+    if(p1st2 == "未投与"){
+        alert("与薬情報が未確認です！\n情報を確認してからIDチェックをして下さい！");
+    }else if(p1st2 == "投与済み"){
+        alert("すでに投与されています");
+    }else{
+        if(document.form3.night_statuscheck.value==ID2){
+            Right = confirm("正しく確認できています。\n対象患者に薬剤を投与してください。");
+            if(Right == true){
+                localStorage.setItem(P1_STATUS2,"投与済み");
+                location.href="patient1.html";
+            }else{
+                alert("キャンセルされました");
+            }
+        }else{
+            alert("対象患者が間違っています！\n患者IDを再確認してください。");
+        }
+    }
+}
+//IDチェック夜//
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <p class="title">患者ID確認画面</p>
+        </header>
+        
+    <div class="main">
+        <br>
+    <table class="IDlist" border="1">
+        <caption>ID確認</caption>
+        <tr>
+            <th colspan="2">氏名</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p_name"></td>
+        </tr>
+        <tr>
+            <th colspan="2">朝食後</th>
+        </tr>
+        <tr>
+            <form name="form1">
+            <td colspan="2"><br><div><input type="text" id="morning_statuscheck" class="inID" placeholder="IDを入力または貼り付けて下さい" inputmode="url">
+            <button type="submit" id="IDcheck_morning" class="btn-IDcheck">IDを確認</button></div><br></td>
+            </form>
+        </tr>
+        <tr>
+            <th colspan="2">昼食後</th>
+        </tr>
+        <tr>
+            <form name="form2">
+            <td colspan="2"><br><div><input type="text" id="noon_statuscheck" class="inID" placeholder="IDを入力または貼り付けて下さい" inputmode="url">
+            <button type="submit" id="IDcheck_noon" class="btn-IDcheck">IDを確認</button></div><br></td>
+            </form>
+        </tr>
+        <tr>
+            <th colspan="2">夕食後</th>
+        </tr>
+        <tr>
+            <form name="form3">
+            <td colspan="2"><br><div><input type="text" id="night_statuscheck" class="inID" placeholder="IDを入力または貼り付けて下さい" inputmode="url">
+            <button type="submit" id="IDcheck_night" class="btn-IDcheck">IDを確認</button></div><br></td>
+            </form>
+        </tr>  
+    </table>
+    <br>
+    <table class="IDlist" border="1">
+        <caption>QRコードリーダー</caption>
+        <tr>
+            <td colspan="2"><br>↓ カメラを起動 ↓<br><a href="qr.html" class="btn_home">QRを読み取る</a><br></td>
+        </tr>
+    </table>
+
+    </div>
+
+    <footer>
+        <a href="patient1.html" class="btn-stitch">もどる</a>
+    </footer>
+
+    </div>
+</body>
+</html>

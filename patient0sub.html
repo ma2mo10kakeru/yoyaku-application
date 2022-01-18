@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <title>patient0</title>
+    <link rel="stylesheet" href="./css/system.css" />
+
+<script type="text/javascript">
+//LocalStorageの入れ物//
+    var P0_STATUS0 = "P0_ST0";
+    var P0_STATUS1 = "P0_ST1";
+    var P0_STATUS2 = "P0_ST2";
+
+//LocalStorage設定&画面表示//
+    window.onload = function(){
+        let p0status0 = getStorage0();
+        setStatus0(p0status0);
+        let p0status1 = getStorage1();
+        setStatus1(p0status1);
+        let p0status2 = getStorage2();
+        setStatus2(p0status2);
+    }
+
+    function getStorage0(){
+        let p0st0 = localStorage.getItem(P0_STATUS0);
+        if(p0st0 !== null){
+            return p0st0;
+        }else{
+            return "未投与";
+        }
+    }
+    function setStatus0(p0status0){
+        document.getElementById("status_morning").innerText = p0status0;
+        setStorage0(p0status0);
+    }
+    function setStorage0(p0status0){
+        localStorage.setItem(P0_STATUS0,p0status0);
+    }
+
+    function getStorage1(){
+        let p0st1 = localStorage.getItem(P0_STATUS1);
+        if(p0st1 !== null){
+            return p0st1;
+        }else{
+            return "未投与";
+        }
+    }
+    function setStatus1(p0status1){
+        document.getElementById("status_noon").innerText = p0status1;
+        setStorage1(p0status1);
+    }
+    function setStorage1(p0status1){
+        localStorage.setItem(P0_STATUS1,p0status1);
+    }
+
+    function getStorage2(){
+        let p0st2 = localStorage.getItem(P0_STATUS2);
+        if(p0st2 !== null){
+            return p0st2;
+        }else{
+            return "未投与";
+        }
+    }
+    function setStatus2(p0status2){
+        document.getElementById("status_night").innerText = p0status2;
+        setStorage2(p0status2);
+    }
+    function setStorage2(p0status2){
+        localStorage.setItem(P0_STATUS2,p0status2);
+    }
+//LocalStorage設定&画面表示//
+
+//JSON読み込み//
+ $(function(){
+    $.getJSON("drugdata.json",display);
+　});
+function display(drugdata){
+    $("#p_name").html(drugdata[0].name);
+};
+//JSON読み込み//
+
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <p class="title">与薬情報選択画面</p>
+        </header>
+        
+    <div class="main">
+    <br>
+    <table border="1" class="list">
+        <caption>①<br>与薬情報</caption>
+        <tr>
+            <th colspan="3">氏名</th>
+        </tr>
+        <tr>
+            <td colspan="3" id="p_name"></td>
+        </tr>
+        <tr>
+            <th>投与時間</th><th>ステータス</th><th>与薬情報を閲覧</th>
+        </tr>
+        <tr>
+            <td colspan="3">投与時間を選択してください</td>
+        </tr>
+        <tr>
+            <td>朝食後</td><td id="status_morning"></td><td><a href="p0_morning.html" class="btn_home">与薬情報を閲覧<span></span></a></td>
+        </tr>
+        <tr>
+            <td>昼食後</td><td id="status_noon"></td><td><a href="p0_noon.html" class="btn_home">与薬情報を閲覧<span></span></a></td>
+        </tr>
+        <tr>
+            <td>夕食後</td><td id="status_night"></td><td><a href="p0_night.html" class="btn_home">与薬情報を閲覧<span></span></a></td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table class="IDlist" border="1">
+        <caption>②<br>QRコード認証</caption>
+        <tr>
+            <th colspan="2">↓患者ID確認画面へ進む↓</th>
+        </tr>
+        <tr>
+            <td colspan="2"><br>
+            与薬情報を確認した場合、以下のボタンから<br>患者ID確認画面に進んで患者確認を行ってください<br><br>
+            <a href="p0_IDcheck.html" class="btn_home">患者ID確認画面へ<span></span></a><br>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <footer>
+        <a href="index.html" class="btn-stitch">もどる</a>
+    </footer>
+
+    </div>
+</body>
+</html>

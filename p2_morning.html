@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta name="viewport" content="viewport-fit=cover">
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <title>p2_morning</title>
+    <link rel="stylesheet" href="./css/system.css" />
+
+    <script>
+    //JSON読み込み＆画面表示//
+        $(function(){
+            $.getJSON("drugdata.json",display);
+        });
+        function display(drugdata){
+            $("#p2_name").html(drugdata[2].name);
+            $("#p2morning_dn0").html(drugdata[2].morning.drugname[0])
+            $("#p2morning_dn1").html(drugdata[2].morning.drugname[1])
+            $("#p2morning_dn2").html(drugdata[2].morning.drugname[2])
+            $("#p2morning_dn3").html(drugdata[2].morning.drugname[3])
+            $("#p2morning_dn4").html(drugdata[2].morning.drugname[4])
+            $("#p2morning_dd0").html(drugdata[2].morning.drugdose[0])
+            $("#p2morning_dd1").html(drugdata[2].morning.drugdose[1])
+            $("#p2morning_dd2").html(drugdata[2].morning.drugdose[2])
+            $("#p2morning_dd3").html(drugdata[2].morning.drugdose[3])
+            $("#p2morning_dd4").html(drugdata[2].morning.drugdose[4])
+            $("#p2morning_dn00").html(drugdata[2].morning.drugname[0])
+            $("#p2morning_dn01").html(drugdata[2].morning.drugname[1])
+            $("#p2morning_dn02").html(drugdata[2].morning.drugname[2])
+            $("#p2morning_dn03").html(drugdata[2].morning.drugname[3])
+            $("#p2morning_dn04").html(drugdata[2].morning.drugname[4])
+            $("#p2morning_p0").html(drugdata[2].morning.purpose[0])
+            $("#p2morning_p1").html(drugdata[2].morning.purpose[1])
+            $("#p2morning_p2").html(drugdata[2].morning.purpose[2])
+            $("#p2morning_p3").html(drugdata[2].morning.purpose[3])
+            $("#p2morning_p4").html(drugdata[2].morning.purpose[4])
+            $("#p2morning_n").html(drugdata[2].morning.note)
+            $("#p2morning_t").html(drugdata[2].morning.time)
+        }
+    //JSON読み込み＆画面表示//
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <p class="title">与薬情報閲覧画面</p>
+        </header>
+        
+    <div class="main">
+    <br>
+    <table border="1" class="list">
+        <caption>与薬情報</caption>
+        <tr>
+            <td colspan="2">与薬情報を閲覧して薬剤を確認してください</td>
+        </tr>
+        <tr>
+            <th colspan="2">氏名</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p2_name"></td>
+        </tr>
+        <tr>
+            <th>処方薬</th><th>用量</th>
+        </tr>
+        <tr>
+            <td id="p2morning_dn0"></td><td id="p2morning_dd0"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn1"></td><td id="p2morning_dd1"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn2"></td><td id="p2morning_dd2"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn3"></td><td id="p2morning_dd3"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn4"></td><td id="p2morning_dd4"></td>
+        </tr>
+        <tr>
+            <th colspan="2">使用目的</th>
+        </tr>
+        <tr>
+            <td id="p2morning_dn00"></td><td id="p2morning_p0"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn01"></td><td id="p2morning_p1"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn02"></td><td id="p2morning_p2"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn03"></td><td id="p2morning_p3"></td>
+        </tr>
+        <tr>
+            <td id="p2morning_dn04"></td><td id="p2morning_p4"></td>
+        </tr>
+        <tr>
+            <th colspan="2">備考</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p2morning_n"></td>
+        </tr>
+        <tr>
+            <th colspan="2">投与時刻</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p2morning_t"></td>
+        </tr>
+    </table>
+    </div>
+
+    <footer>
+        <div style="float:left"><a href="patient2.html" class="btn-stitch">もどる</a></div><div style="text-align: right"><a href="p2_morningcheck.html" class="btn-check">確認する</a></div>
+    </footer>
+    
+    </div>
+</body>
+</html>

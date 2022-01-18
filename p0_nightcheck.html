@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <title>p0_night</title>
+    <link rel="stylesheet" href="./css/system.css" />
+
+    <script type="text/javascript">
+        //LocalStorageの入れ物//
+        var P0_STATUS2 = "P0_ST2";
+
+        //JSON読み込み＆画面表示//
+        $(function(){
+            $.getJSON("drugdata.json",display);
+        });
+        function display(drugdata){
+            $("#p0_name").html(drugdata[0].name);
+            $("#p0night_dn0").html(drugdata[0].night.drugname[0])
+            $("#p0night_dn1").html(drugdata[0].night.drugname[1])
+            $("#p0night_dn2").html(drugdata[0].night.drugname[2])
+            $("#p0night_dn3").html(drugdata[0].night.drugname[3])
+            $("#p0night_dn4").html(drugdata[0].night.drugname[4])
+            $("#p0night_dn00").html(drugdata[0].night.drugname[0])
+            $("#p0night_dn01").html(drugdata[0].night.drugname[1])
+            $("#p0night_dn02").html(drugdata[0].night.drugname[2])
+            $("#p0night_dn03").html(drugdata[0].night.drugname[3])
+            $("#p0night_dn04").html(drugdata[0].night.drugname[4])
+            $("#p0night_p0").html(drugdata[0].night.purpose[0])
+            $("#p0night_p1").html(drugdata[0].night.purpose[1])
+            $("#p0night_p2").html(drugdata[0].night.purpose[2])
+            $("#p0night_p3").html(drugdata[0].night.purpose[3])
+            $("#p0night_p4").html(drugdata[0].night.purpose[4])
+            $("#p0night_n").html(drugdata[0].night.note)
+            $("#p0night_t").html(drugdata[0].night.time)
+        }
+        //JSON読み込み＆画面表示//
+
+        //用量チェック//
+        $(function(){
+            $("#check").click(function(){
+                $.getJSON("drugdata.json",check1);
+            });
+        });
+        function check1(drugdata){
+            var DD0,DD1,DD2,DD3,DD4;
+            DD0 = drugdata[0].night.drugdose[0];
+            DD1 = drugdata[0].night.drugdose[1];
+            DD2 = drugdata[0].night.drugdose[2];
+            DD3 = drugdata[0].night.drugdose[3];
+            DD4 = drugdata[0].night.drugdose[4];
+            if(document.form1.drugdose0.value==DD0 && document.form1.drugdose1.value==DD1 && document.form1.drugdose2.value==DD2 && document.form1.drugdose3.value==DD3 && document.form1.drugdose4.value==DD4){
+                Right = confirm("正しく確認できています。\n患者ID確認画面でQRを読み込んでください。");
+                if(Right == true){
+                    localStorage.setItem(P0_STATUS2,"確認済み");
+                    location.href="patient0.html";
+                }else{
+                    alert("キャンセルされました。");
+                }
+            }else{
+                Wrong = confirm("入力内容が間違っています！\n与薬情報閲覧画面から再確認してください。");
+                if(Wrong == true){
+                    location.href="p0_night.html";
+                }else{
+                    alert("キャンセルされました。")
+                }
+            }
+        }
+        //用量チェック//
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <p class="title">与薬情報確認画面</p>
+        </header>
+        
+    <div class="main">
+    <br>
+    <form name="form1">
+    <table border="1" class="list">
+        <caption>与薬情報</caption>
+        <tr>
+            <th colspan="2">氏名</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p0_name"></td>
+        </tr>
+        <tr>
+            <th>処方薬</th><th>用量</th>
+        </tr>
+        <tr>
+            <td colspan="2" style="color:red">投与薬剤の用量のみ入力して下さい</td>
+        </tr>
+        <tr>
+            <td id="p0night_dn0"></td><td><input type="text" class="inDOSE" id="drugdose0" placeholder="用量を入力してください" inputmode="numeric" pattern="\d*"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn1"></td><td><input type="text" class="inDOSE" id="drugdose1" placeholder="用量を入力してください" inputmode="numeric" pattern="\d*"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn2"></td><td><input type="text" class="inDOSE" id="drugdose2" placeholder="用量を入力してください" inputmode="numeric" pattern="\d*"></td>
+        </tr> 
+        <tr>
+            <td id="p0night_dn3"></td><td><input type="text" class="inDOSE" id="drugdose3" placeholder="用量を入力してください" inputmode="numeric" pattern="\d*"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn4"></td><td><input type="text" class="inDOSE" id="drugdose4" placeholder="用量を入力してください" inputmode="numeric" pattern="\d*"></td>
+        </tr>
+        <tr>
+            <th colspan="2">使用目的</th>
+        </tr>
+        <tr>
+            <td id="p0night_dn00"></td><td id="p0night_p0"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn01"></td><td id="p0night_p1"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn02"></td><td id="p0night_p2"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn03"></td><td id="p0night_p3"></td>
+        </tr>
+        <tr>
+            <td id="p0night_dn04"></td><td id="p0night_p4"></td>
+        </tr>
+        <tr>
+            <th colspan="2">備考</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p0night_n"></td>
+        </tr>
+        <tr>
+            <th colspan="2">投与時刻</th>
+        </tr>
+        <tr>
+            <td colspan="2" id="p0night_t"></td>
+        </tr>
+    </table>
+    <div class="button_wrapper">
+        <button type="submit" id="check" class="btn-DRUGcheck">確認する</button>
+    </div>
+    </form>
+    </div>
+
+    <footer>
+        <a href="p0_night.html" class="btn-stitch">もどる</a>
+    </footer>
+    
+    </div>
+</body>
+</html>
